@@ -182,7 +182,7 @@ Item {
             horizontalCenter: parent.horizontalCenter;
 			// verticalCenter: parent.verticalCenter
 			bottom: collectionListFooter.top
-			bottomMargin: vpx(10)
+			bottomMargin: vpx(20)
            
                 }
 				

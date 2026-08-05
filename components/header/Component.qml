@@ -177,98 +177,6 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter;
         }
 
-	Column{
-        spacing: vpx(2);
-		width: Math.max(rootR.width*.12, parent.height*2)
-		anchors.verticalCenter: parent.verticalCenter;
-
-
-		Row{
-				spacing: vpx(10)
-			Text {
-				text:"上次游玩:"
-				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
-				font {
-					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
-					family: subtitleFont.name
-				}
-
-				visible: (currentView != 'gameList' ) ? false : true;
-				opacity: .5
-		    }
-
-			Text {
-				id: timecount
-				 text:{
-					   if (!currentGame)
-						   return "-";
-					   if (isNaN(currentGame.lastPlayed))
-						   return "从未玩过";
-
-					   var now = new Date();
-
-					   var diffHours = (now.getTime() - currentGame.lastPlayed.getTime()) / 1000 / 60 / 60;
-					   if (diffHours < 24 && now.getDate() === currentGame.lastPlayed.getDate())
-						   return "今天玩过";
-
-					   var diffDays = Math.round(diffHours / 24);
-					   if (diffDays <= 1)
-						   return "昨天玩过";
-
-					   return diffDays + "天以前"
-				  }
-				horizontalAlignment: Text.AlignRight
-				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
-				font {
-					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
-					family: subtitleFont.name
-				}
-
-				visible: (currentView != 'gameList' ) ? false : true;
-				opacity: .5
-			  }
-			}
-
-			Row{
-				spacing: vpx(10)
-
-			Text {
-				text:"游戏时长:"
-				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
-				font {
-					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
-					family: subtitleFont.name
-				}
-
-				visible: (currentView != 'gameList' ) ? false : true;
-				opacity: .5
-		    }
-
-			Text {
-				id: timecount2
-				text: {if (!currentGame)
-							   return "-";
-
-						   var minutes = Math.ceil(currentGame.playTime / 60)
-						   if (minutes <= 90)
-							   return Math.round(minutes) + "分钟";
-
-						   return parseFloat((minutes / 60).toFixed(1)) + "小时"
-				}
-				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
-				horizontalAlignment: Text.AlignRight
-				font {
-					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
-					family: subtitleFont.name
-				}
-
-				visible: (currentView != 'gameList' ) ? false : true;
-				opacity: .5
-			}
-			}
-
-		}
-
         Clock {
            id: clock;
            shade: parent.shade;
@@ -411,4 +319,98 @@ Rectangle {
             }
         }
     }
+
+	Column{
+        spacing: vpx(2);
+		width: Math.max(rootR.width*.12, parent.height*2)
+		anchors.verticalCenter: parent.verticalCenter;
+		anchors.right: headerWidgets.left;
+		anchors.rightMargin: 50;
+
+
+		Row{
+				spacing: vpx(10)
+			Text {
+				text:"上次游玩:"
+				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
+				font {
+					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
+					family: subtitleFont.name
+				}
+
+				visible: (currentView != 'gameList' ) ? false : true;
+				opacity: .5
+		    }
+
+			Text {
+				id: timecount
+				 text:{
+					   if (!currentGame)
+						   return "-";
+					   if (isNaN(currentGame.lastPlayed))
+						   return "从未玩过";
+
+					   var now = new Date();
+
+					   var diffHours = (now.getTime() - currentGame.lastPlayed.getTime()) / 1000 / 60 / 60;
+					   if (diffHours < 24 && now.getDate() === currentGame.lastPlayed.getDate())
+						   return "今天玩过";
+
+					   var diffDays = Math.round(diffHours / 24);
+					   if (diffDays <= 1)
+						   return "昨天玩过";
+
+					   return diffDays + "天以前"
+				  }
+				horizontalAlignment: Text.AlignRight
+				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
+				font {
+					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
+					family: subtitleFont.name
+				}
+
+				visible: (currentView != 'gameList' ) ? false : true;
+				opacity: .5
+			  }
+			}
+
+			Row{
+				spacing: vpx(10)
+
+			Text {
+				text:"游戏时长:"
+				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
+				font {
+					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
+					family: subtitleFont.name
+				}
+
+				visible: (currentView != 'gameList' ) ? false : true;
+				opacity: .5
+		    }
+
+			Text {
+				id: timecount2
+				text: {if (!currentGame)
+							   return "-";
+
+						   var minutes = Math.ceil(currentGame.playTime / 60)
+						   if (minutes <= 90)
+							   return Math.round(minutes) + "分钟";
+
+						   return parseFloat((minutes / 60).toFixed(1)) + "小时"
+				}
+				color: currentView == 'collectionList' ? "#fff" : shadeColor2;
+				horizontalAlignment: Text.AlignRight
+				font {
+					pixelSize: Math.min(rootR.width * .035,rootR.height* .25)
+					family: subtitleFont.name
+				}
+
+				visible: (currentView != 'gameList' ) ? false : true;
+				opacity: .5
+			}
+			}
+
+		}
 }

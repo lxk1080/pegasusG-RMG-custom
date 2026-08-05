@@ -42,7 +42,7 @@ Item {
 
         font {
             family: subtitleFont.name;
-            pixelSize: parent.height * .42;
+            pixelSize: parent.height * .5;
             letterSpacing: -0.3;
         }
 		leftPadding: vpx(20)

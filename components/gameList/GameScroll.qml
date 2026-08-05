@@ -192,7 +192,7 @@ Item {
             horizontalAlignment: Text.AlignJustify
 			//style: Text.Outline;styleColor:"#555555"
             font {
-                pixelSize: Math.min(parent.parent.height * .1 * theme.fontScale,parent.width*.06)//parent.parent.height * .12 * theme.fontScale;
+                pixelSize: Math.min(parent.parent.height * .12 * theme.fontScale,parent.width*.08)//parent.parent.height * .12 * theme.fontScale;
                 family: subtitleFont.name
             }
         }

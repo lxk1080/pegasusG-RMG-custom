@@ -77,9 +77,7 @@ Item {
         visible: showFavorite;
         text: glyphs.favorite;
         verticalAlignment: Text.AlignVCenter;
-        color: gamesListView.currentIndex === index
-            ? theme.current.focusTextColor
-            : theme.current.blurTextColor;
+        color: "#FF6B6B";
         height: parent.height;
 
         font {

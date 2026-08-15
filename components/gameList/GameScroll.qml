@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtGraphicalEffects 1.12
 
 import '../media' as Media
 
@@ -8,6 +9,18 @@ Item {
     property var sortingFont: global.fonts.sans;
     property alias letter: skipLetter.letter;
 	property alias flick: flickable;
+
+    // The details area is the space left after the game list. Its top media
+    // row is laid out from one shared set of background-relative insets.
+    property real detailsLeft: gamesListView.x + gamesListView.width;
+    property real detailsRightMargin: vpx(20);
+    property real detailsWidth: parent.width - detailsLeft - detailsRightMargin;
+    property real mediaInset: vpx(10);
+    property real descriptionInset: mediaInset * 2;
+    property real mediaGap: mediaInset;
+    property real coverColumnWidth: Math.max(0, (detailsWidth - mediaInset * 3) / 2);
+    property real coverWidth: Math.max(0, coverColumnWidth - mediaInset * 2);
+    property real videoWidth: Math.max(0, detailsWidth - coverColumnWidth - mediaInset);
 
     property double itemHeight: {
         return gamesListView.height * .12 * theme.fontScale;
@@ -72,7 +85,7 @@ Item {
         id: gamesListView;
         model: currentGameList;
         delegate: lvGameDelegate;
-        width: (parent.width* 2/ 5); // 20 is left margin
+        width: parent.width * .35; // 20 is left margin
         height: parent.height - 24;
         highlightMoveDuration: 0;
         preferredHighlightBegin: itemHeight - 12; // height of an item minus top margin
@@ -112,6 +125,47 @@ Item {
 		
     }
 
+    // Give the media and description column some game-specific atmosphere
+    // without competing with the box art, video, or readable description.
+    Item {
+        id: detailsBackdrop;
+
+        x: detailsLeft;
+        width: detailsWidth;
+        anchors.top: parent.top;
+        anchors.bottom: parent.bottom;
+        clip: true;
+        z: -1;
+        visible: backdropImage.status === Image.Ready;
+
+        Image {
+            id: backdropImage;
+
+            anchors.fill: parent;
+            source: imgSrc;
+            asynchronous: true;
+            cache: false;
+            fillMode: Image.PreserveAspectCrop;
+        }
+
+        FastBlur {
+            anchors.fill: parent;
+            source: backdropImage;
+            radius: 52;
+        }
+
+        // The top remains subtly visible behind the media; the lower fade
+        // keeps the game title and long description easy to read.
+        Rectangle {
+            anchors.fill: parent;
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: '#a8111111'; }
+                GradientStop { position: 0.45; color: '#c8111111'; }
+                GradientStop { position: 1.0; color: theme.current.bgColor; }
+            }
+        }
+    }
+
     SkipLetter {
         id: skipLetter;
 
@@ -134,10 +188,9 @@ Item {
     Media.GameImage {
         id: gameListBoxart;
 
-        width: parent.width* 1/ 5;
+        width: coverWidth;
         height: parent.height*.7;
-        // x: parent.width* 2/ 5+vpx(30);
-        x: gamesListView.width+vpx(40);
+        x: detailsLeft + mediaInset;
         imageSource: imgSrc;
 		
     }
@@ -145,9 +198,9 @@ Item {
     Media.GameVideo {
         id: gameListVideo;
 
-        width: parent.width* 2/ 5-vpx(75);
+        width: videoWidth;
         height: parent.height*.7;
-        x: parent.width* 3/ 5+ vpx(45);
+        x: detailsLeft + coverColumnWidth;
         settingKey: 'gameListVideo';
         validView: 'gameList';
 		
@@ -167,10 +220,10 @@ Item {
             topMargin: parent.height*.5+15;
             bottom:parent.bottom;
             bottomMargin: 10;
-            left: gamesListView.right;
-            leftMargin: 30;
+            left: parent.left;
+            leftMargin: detailsLeft + descriptionInset;
             right: parent.right;
-            rightMargin: 30;
+            rightMargin: detailsRightMargin + descriptionInset;
             }
 		contentWidth: parent.width
 		contentHeight: fullDesc.height

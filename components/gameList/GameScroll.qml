@@ -185,6 +185,48 @@ Item {
 		
     // }
 
+    // A blurred version of the box art fills the cover slot, while the
+    // regular GameImage above it keeps the original artwork undistorted.
+    Item {
+        id: coverStage;
+
+        x: detailsLeft + mediaInset;
+        width: coverWidth;
+        y: mediaInset;
+        height: parent.height * .49;
+        clip: true;
+        visible: coverStageImage.status === Image.Ready;
+
+        Image {
+            id: coverStageImage;
+
+            anchors.fill: parent;
+            source: imgSrc;
+            asynchronous: true;
+            cache: false;
+            fillMode: Image.PreserveAspectCrop;
+        }
+
+        FastBlur {
+            anchors.fill: parent;
+            source: coverStageImage;
+            radius: 30;
+        }
+
+        Rectangle {
+            anchors.fill: parent;
+            color: '#b8111111';
+        }
+
+        Rectangle {
+            anchors.fill: parent;
+            color: 'transparent';
+            border.color: '#30ffffff';
+            border.width: 1;
+            radius: vpx(4);
+        }
+    }
+
     Media.GameImage {
         id: gameListBoxart;
 

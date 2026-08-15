@@ -18,8 +18,8 @@ Item {
     Rectangle {
         id: icon;
 
-        height: vpx(30)//parent.height;
-        width: vpx(30)//square ? squareWidth : parent.height;
+        height: vpx(38)//parent.height;
+        width: vpx(38)//square ? squareWidth : parent.height;
         radius: square ? .2 * squareWidth : parent.height;
         color: '#444444';
         anchors.verticalCenter: parent.verticalCenter;
@@ -33,7 +33,7 @@ Item {
 
             font {
 		family: subtitleFont.name;
-                pixelSize: fontSize*0.95;
+                pixelSize: fontSize*1.08;
                 letterSpacing: -0.3;
                 //bold: true;
             }

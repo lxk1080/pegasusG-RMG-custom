@@ -242,7 +242,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent;
-            color: '#a3111111';
+            color: '#b8111111';
         }
 
         Rectangle {

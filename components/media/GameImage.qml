@@ -64,7 +64,7 @@ Item {
         visible: false;
         fillMode: Image.PreserveAspectFit;
         cache: false;
-        width: parent.width;
+        width: parent.width - contentInset * 2;
         height: parent.height * .7 - contentInset * 2;
 		// horizontalAlignment: Image.Right
 		anchors.top: parent.top

@@ -215,7 +215,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent;
-            color: '#b8111111';
+            color: '#a3111111';
         }
 
         Rectangle {
@@ -234,6 +234,7 @@ Item {
         height: parent.height*.7;
         x: detailsLeft + mediaInset;
         imageSource: imgSrc;
+        contentInset: mediaInset;
 		
     }
 

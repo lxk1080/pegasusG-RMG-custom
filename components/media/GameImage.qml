@@ -6,6 +6,7 @@ Item {
     property bool videoPlaying: false;
     property string imageSource: '';
     property bool delayedImage: false;
+    property real contentInset: 0;
 
     visible: {
         if (failed) return false;
@@ -64,11 +65,11 @@ Item {
         fillMode: Image.PreserveAspectFit;
         cache: false;
         width: parent.width;
-        height: parent.height * .7;
+        height: parent.height * .7 - contentInset * 2;
 		// horizontalAlignment: Image.Right
 		anchors.top: parent.top
 		// anchors.bottom: parent.bottom
-		anchors.topMargin: vpx(10)
+		anchors.topMargin: vpx(10) + contentInset
 		// anchors.bottomMargin: vpx(20)
 		anchors.horizontalCenter: parent.horizontalCenter
         // anchors.centerIn: parent;

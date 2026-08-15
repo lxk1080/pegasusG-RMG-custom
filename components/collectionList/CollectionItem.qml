@@ -6,6 +6,16 @@ import '../header' as Header
 
 
 Item {
+    property bool useSecondBackground: settings.get('secondBackgroundStyle');
+    property bool useBuiltinCollectionBackground: [ '全部游戏', '最近游戏', '收藏游戏' ].indexOf(modelData.name) !== -1;
+    property bool useLegacyBackground: !useSecondBackground || useBuiltinCollectionBackground;
+
+    Component.onCompleted: {
+        settings.addCallback('secondBackgroundStyle', function (enabled) {
+            useSecondBackground = enabled;
+        });
+    }
+
     MouseArea {
         anchors.fill: parent;
         onClicked: {
@@ -14,15 +24,21 @@ Item {
         }
     }
 
-    // background stripe
+    // Device artwork or the legacy full-frame collection artwork.
     Image {
     	//source: '../../assets/images/stripe.png';
-        source: '../../../Resource/Background_image1/' + collectionData.getImage(modelData.name) + '.jpg';
-        fillMode: Image.PreserveAspectCrop;
+        source: '../../../Resource/'
+            + (useLegacyBackground ? 'Background_image1/' : 'Background_image2/')
+            + collectionData.getImage(modelData.name)
+            + (useLegacyBackground ? '.jpg' : '.png');
+        width: parent.width;
+        height: parent.height;
+        fillMode: useLegacyBackground
+            ? Image.PreserveAspectCrop
+            : Image.PreserveAspectFit;
         horizontalAlignment: Image.AlignHCenter;
         anchors {
-            fill: parent;
-            //rightMargin: 70;
+            centerIn: parent;
         }
     }
 

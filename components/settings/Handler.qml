@@ -10,6 +10,7 @@ Item {
 		'twelveHour',
 		'smallFont', 
 		'gameListLogo', 
+		'secondBackgroundStyle',
 /*		'favoritesOnTop',
 		'quickVideo',
 		'buttonGuide', 
@@ -41,7 +42,14 @@ Item {
     function set(key, value) {
         if (values[key] === undefined) return;
 
-        values[key] = value;
+        // Reassign the object so QML bindings observing settings.values are
+        // notified as well as the explicit callbacks below.
+        const updatedValues = {};
+        for (const existingKey in values) {
+            updatedValues[existingKey] = values[existingKey];
+        }
+        updatedValues[key] = value;
+        values = updatedValues;
         callback(key);
     }
 
@@ -69,6 +77,7 @@ Item {
         'smallFont': false,
         'gameListVideo': true,
 		'gameListLogo': true,
+		'secondBackgroundStyle': false,
         'gameDetailsVideo': true,
         'quietVideo': true,
         'quickVideo': true,
@@ -89,6 +98,7 @@ Item {
         'smallFont': null,
         'gameListVideo': null,
 		'gameListLogo': null,
+		'secondBackgroundStyle': null,
         'gameDetailsVideo': null,
         'quietVideo': null,
         'quickVideo': null,
@@ -109,6 +119,7 @@ Item {
         'smallFont': [],
         'gameListVideo': [],
 		'gameListLogo': [],
+		'secondBackgroundStyle': [],
         'gameDetailsVideo': [],
         'quietVideo': [],
         'quickVideo': [],
@@ -129,6 +140,7 @@ Item {
         'smallFont': '使用小字体',
         'gameListVideo': '游戏列表显示视频',
 		'gameListLogo': '游戏列表显示Logo（重启or翻页）',
+		'secondBackgroundStyle': '使用第二套背景样式',
         'gameDetailsVideo': '游戏详情显示视频',
         'quietVideo': '视频静音',
         'quickVideo': '加快显示视频',

@@ -103,11 +103,38 @@ Item {
             bottomMargin: 12;
         }
 
-        highlight: Rectangle {
-            color: collectionData.getColor(currentShortName);
+        highlight: Item {
             opacity: theme.current.bgOpacity;
-            radius: 8;
             width: gamesListView.width;
+            height: gamesListView.currentItem ? gamesListView.currentItem.height : 0;
+
+            LinearGradient {
+                id: highlightGradient;
+
+                anchors.fill: parent;
+                start: Qt.point(0, 0);
+                end: Qt.point(width, 0);
+                visible: false;
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: collectionData.getColor(currentShortName); }
+                    GradientStop { position: 1.0; color: '#00' + collectionData.getColor(currentShortName).slice(1); }
+                }
+            }
+
+            Rectangle {
+                id: highlightMask;
+
+                anchors.fill: parent;
+                color: 'white';
+                radius: 8;
+                visible: false;
+            }
+
+            OpacityMask {
+                anchors.fill: parent;
+                source: highlightGradient;
+                maskSource: highlightMask;
+            }
         }
 
         onCurrentIndexChanged: {

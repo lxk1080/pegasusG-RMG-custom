@@ -38,11 +38,11 @@ Item {
         color: gamesListView.currentIndex === index
             ? theme.current.focusTextColor
             : theme.current.blurTextColor;
-        height: parent.height;
+        height: parent.height - vpx(5);
 
         font {
             family: subtitleFont.name;
-            pixelSize: parent.height * .49;
+            pixelSize: parent.height * .475;
             letterSpacing: -0.3;
         }
 		leftPadding: vpx(20)

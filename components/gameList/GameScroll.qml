@@ -18,7 +18,7 @@ Item {
     property real mediaInset: vpx(10);
     property real descriptionInset: mediaInset * 2;
     property real mediaGap: mediaInset;
-    property real coverColumnWidth: Math.max(0, (detailsWidth - mediaInset * 3) / 2);
+    property real coverColumnWidth: Math.max(0, (detailsWidth - mediaInset * 3) / 2 * .85);
     property real coverWidth: Math.max(0, coverColumnWidth - mediaInset * 2);
     property real videoWidth: Math.max(0, detailsWidth - coverColumnWidth - mediaInset);
 
